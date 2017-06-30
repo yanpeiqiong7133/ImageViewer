@@ -1,0 +1,309 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.viewer-shadow{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index:inherit;
+  opacity: 0.6;
+    background: #000000;
+}
+.viewer-root {
+  /*left: 50%;*/
+  top: 0;
+  position: absolute;
+}
+.viewer-root .viewer-loading{
+  background: url("./imgs/icons/loading.gif") no-repeat;
+}
+.viewer-root .viewer-loading-small{
+  background: url("./imgs/icons/loading-s.gif") no-repeat;
+}
+.viewer-container {
+  position: absolute;
+}
+
+.viewer-canvas.viewer-left{
+  cursor: url("./imgs/icons/鼠标上一张.png"), default;
+}
+.viewer-canvas.viewer-right{
+  cursor: url("./imgs/icons/鼠标下一张.png"), default;
+}
+
+.viewer-container::-moz-selection,
+  .viewer-container *::-moz-selection {
+  background-color: transparent;
+}
+
+.viewer-container::selection,
+  .viewer-container *::selection {
+  background-color: transparent;
+}
+
+.viewer-info{
+  /*min-width: 650px;*/
+  text-align: center;
+}
+
+.viewer-info span{
+  height: 30px;
+  line-height: 30px;
+  font-family: GujaratiSangamMN-Bold;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.50);
+
+}
+.viewer-canvas {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*cursor: pointer;*/
+}
+
+.viewer-transition {
+  transition: all .3s;
+}
+
+.viewer-canvas > img {
+  height: auto;
+  width: auto;
+  /*cursor: pointer;*/
+}
+
+.viewer-canvas > img.viewer-current-image{
+  cursor: move;
+}
+
+.viewer-move {
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.viewer-footer {
+  overflow: hidden;
+  position: absolute;
+  bottom: 20px;
+  width: 560px;
+  
+}
+
+.viewer-navbar {
+  overflow: hidden; 
+  padding-left: 0;
+  /*max-width: 650px;*/
+  margin-top: 20px;
+  width: 560px;
+  height: 60px;
+  opacity: 0.6;
+  background: #000000;
+  border-radius: 4px;
+}
+
+.viewer-list {
+  overflow: hidden;
+  width: 100%;
+  box-sizing: content-box;
+  margin: 0;
+  overflow: hidden;
+  padding: 1px 0;
+  text-align: center;
+}
+
+.viewer-list > li {
+  display: inline-block;
+	/*border: 1px solid gray;*/
+	margin: 4px 2px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.viewer-list > li img{
+  width: 56px;
+  height: 44px;
+  border: 2px solid;
+}
+
+.viewer-list > li + li {
+  margin-left: 1px;
+}
+
+.viewer-list > .viewer-active img {
+  border-color: #3395E1; 
+}
+
+.viewer-toolbar {
+  text-align: center;
+    width: 358px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    opacity: 0.6;
+    background: #000000;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.viewer-toolbar > li {
+  display: inline-block;
+	height: 20px;
+  width: 20px;
+  line-height: 20px;
+  color: #ddd;
+	background-color: rgba(0, 0, 0, .3);
+	margin: 0 28px;
+	cursor: pointer;
+  vertical-align: middle;
+}
+.viewer-toolbar > li > span {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-toolbar > li.viewer-zoom-out span{
+  background-image:  url("./imgs/icons/缩小_onr.png");
+  background-repeat: no-repeat;
+}
+.viewer-toolbar > li.viewer-zoom-out span:hover{
+  background-image:  url("./imgs/icons/缩小_hover.png");
+}
+
+.viewer-toolbar >li.viewer-zoom-in span{
+  background-image: url("./imgs/icons/放大_onr.png");
+  background-repeat: no-repeat;
+}
+.viewer-toolbar >li.viewer-zoom-in span:hover{
+  background-image: url("./imgs/icons/放大_hover.png");
+}
+
+.viewer-toolbar > li.viewer-toggle.viewer-disabled span{
+  background-image: url("./imgs/icons/最大_onr.png");
+  background-repeat: no-repeat;
+}
+.viewer-toolbar >li.viewer-toggle.viewer-disabled span:hover{
+  background-image: url("./imgs/icons/最大_hover.png");
+}
+.viewer-toolbar >li.viewer-toggle.viewer-init span{
+  background-image: url("./imgs/icons/最大_onr.png");
+  background-repeat: no-repeat;
+}
+.viewer-toolbar >li.viewer-toggle.viewer-init span:hover{
+  background-image: url("./imgs/icons/最大_hover.png");
+}
+.viewer-toolbar > li.viewer-toggle.viewer-origin span{
+   background-image: url("./imgs/icons/实际大小_nor.png");
+   background-repeat: no-repeat;
+}
+.viewer-toolbar > li.viewer-toggle.viewer-origin span:hover{
+   background-image: url("./imgs/icons/实际大小_hover.png");
+}
+.viewer-toolbar >li.viewer-new-page span{
+  background-image: url("./imgs/icons/新页面_onr.png");
+  background-repeat: no-repeat;
+}
+.viewer-toolbar >li.viewer-new-page span:hover{
+  background-image: url("./imgs/icons/新页面_hover.png");
+}
+.viewer-toolbar >li.viewer-download a{
+  background-image: url("./imgs/icons/下载_onr.png");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.viewer-toolbar >li.viewer-download:hover{
+  background-image: url("./imgs/icons/下载_hover.png");
+  background-repeat: no-repeat;
+}
+
+.viewer-toolbar > li.viewer-curratio{
+    cursor: default;
+    width: 40px;
+}
+.viewer-toolbar > li.viewer-curratio > span {
+  font-size: 14px;
+}
+
+.viewer-toolbar > li:hover {
+  background-color: rgba(0, 0, 0, .4);
+  color: #ffffff;
+}
+
+.viewer-toolbar > li::before {
+  margin: 2px;
+}
+
+.viewer-toolbar > li + li {
+  margin-left: 1px;
+}
+
+.viewer-opt-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-image: url("./imgs/icons/关闭_nor.png");
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    /*font-size: 30px;*/
+    cursor: pointer;
+    /*color: #a99898;*/
+}
+.viewer-opt-close:hover {
+  background-image: url("./imgs/icons/关闭_hover.png");;
+}
+/*.viewer-opt-close:before {
+  content: '\2716';
+}*/
+.viewer-opt-prev, .viewer-opt-next{
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  bottom: 22px;
+  cursor: pointer;
+}
+.viewer-opt-prev{
+   background: url("./imgs/icons/按钮_上一张_nor.png") no-repeat;
+   left: 8px;
+}
+.viewer-opt-prev:hover{
+   background-image: url("./imgs/icons/按钮_上一张_hover.png");
+}
+
+.viewer-opt-next{
+   background: url("./imgs/icons/按钮_下一张_nor.png") no-repeat;
+   right: 5px;
+}
+.viewer-opt-next:hover{
+  background-image: url("./imgs/icons/按钮_下一张_hover.png");
+}
+
+
+.viewer-opt-prev-lg, .viewer-opt-next-lg {
+  visibility: hidden;
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  color: rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+.viewer-opt-prev-lg{
+  background: url("./imgs/icons/鼠标上一张.png") no-repeat;
+}
+.viewer-opt-next-lg{
+  background: url("./imgs/icons/鼠标下一张.png") no-repeat;
+}
+
+.viewer-opt-prev-lg:hover, .viewer-opt-next-lg:hover{
+  color: rgba(0,0,0, 0.7);
+}
+
+

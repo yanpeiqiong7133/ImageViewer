@@ -1,0 +1,261 @@
+<!Doctype html>
+<html>
+	<head>
+		<style>
+			#root{
+				position: absolute;
+				left: 50%;
+			}
+			#container{
+				position: relative;
+				left: -50%;
+				text-align: center;
+			}
+
+			#container #viewer_footer{
+				bottom: 15px;
+			}
+
+			#viewer_toolbar, #viewer_navlist{
+				padding-left: 0;
+			}
+
+			#container #viewer_toolbar li{
+				display: inline-block;
+				height: 27px;
+				border: 1px solid gray;
+				margin-right: 5px;
+				border-radius: 3px;
+				padding: 3px;
+				cursor: pointer;
+			}
+
+			#container #viewer_toolbar li:hover{
+				border: 1px solid red;
+			}
+
+			#container #viewer_navlist li{
+
+				display: inline-block;
+				border: 1px solid gray;
+				margin-right: 5px;
+				opacity: 0.2;
+			}
+
+			#container #viewer_navlist li.active{
+				opacity: 1;
+			}
+
+			#container #viewer_navlist li img{
+				height: 60px;
+				width: auto;
+			}
+
+			#container .viewer_opt{
+				position: absolute;
+				font-size: 30px;
+				font-weight: bold;
+				color: lightgray;
+				top: 30%;
+			}
+
+			#container #viewer_prev{
+				left: -60px;
+			}
+
+			#container #viewer_next{
+				right: -60px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<div id="container">
+				<div id="viewer_canvas">
+				</div>
+				<div id="viewer_footer">
+					<ul id="viewer_toolbar">
+						<li>+</li>
+						<li>-</li>
+						<li>reset</li>
+						<li>toggle</li>
+						<li><<</li>
+						<li>>></li>
+					</ul>
+					<ul id="viewer_navlist">
+					</ul>
+				</div>
+				<div id="viewer_prev" class="viewer_opt">
+					<
+				</div>
+				<div id="viewer_next" class="viewer_opt">
+					>
+				</div>
+
+
+			</div>
+		</div>
+		<script>
+			window.onload = function(){
+				var imageList = [
+					{
+						url: './img_1.jpg',
+						size: '440x439'
+					}, {
+						url: './img_2.jpg',
+						size: '500x334'
+					}, {
+						url: './img_3.jpg',
+						size: '677x848'
+					}, {
+						url: './img_4.jpg',
+						size: '1680x1050'
+					}, {
+						url: './img_5.jpg',
+						size: '1024x726'
+					}, {
+						url: './img_6.jpg',
+						size: '1024x1024'
+					}, {
+						url: './img_7.jpg',
+						size: '650x716'
+					}, {
+						url: './img_8.jpg',
+						size: '683x1024'
+					}
+				];
+
+				function initData(images){
+					images.forEach(function(image,index){
+						image.index = index;
+					})
+				}
+
+				function getViewSize() {
+					return {
+						w: window['innerWidth'] || document.documentElement.clientWidth,
+						h: window['innerHeight'] || document.documentElement.clientHeight
+					}
+				}
+
+				function getFullSize() {
+					var w = Math.max(document.documentElement.clientWidth, document.body.clientWidth) +
+					Math.max(document.documentElement.scrollLeft, document.body.scrollLeft);
+					var h = Math.max(document.documentElement.clientHeight, document.body.clientHeight) +
+					Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+					w = Math.max(document.documentElement.scrollWidth, w);
+					h = Math.max(document.documentElement.scrollHeight, h);
+					return {
+					"w": w,
+					"h": h
+					};
+				}
+
+				function setViewImage(image) {
+					console.log('setViewImage');
+					var imgTemp = new Image();
+					imgTemp.src = image.url;
+					imgTemp.onload = function() {
+						realWidth = this.width;
+						realHeight = this.height;
+						var realRatio = realWidth/realHeight;
+						var viewRatio = _w/_h;
+						// console.log('ratio', ratio);
+						console.log('realWidth', realWidth);
+						console.log('realHeight', realHeight);
+						console.log('container_width', _w);
+						console.log('container_height', _h);
+
+						var style = {
+							width: realWidth + 'px',
+							height: realHeight + 'px',
+						}
+						var width = realWidth;
+						var height = realHeight;
+						// console.log('viewWidth', _sv_w);
+						// console.log('viewHeight', _sv_h);
+						// console.log('fullsizeWidth', _sf_w);
+						// console.log('fullsizeHeight', _sf_h);
+
+						if(realRatio > viewRatio) {
+							if (realWidth > _w) {
+								style.width = _w + 'px';
+								style.height = 'auto';
+							}
+						} else {
+							if (realHeight > _h) {
+								style.height = _h + 'px';
+								style.width = 'auto';
+							}
+						}
+
+						console.log(style);
+
+						imgTemp.style.width = style.width;
+						imgTemp.style.height = style.height;
+						document.getElementById('viewer_canvas').innerHTML = '';
+						document.getElementById('viewer_canvas').appendChild(imgTemp);
+					}
+				}
+
+				function setNavList(images){
+					document.getElementById('viewer_navlist').innerHTML = '';
+					images.forEach(function(image){
+						var li = document.createElement("li");
+						if(image.index === activeImg.index) {
+							li.setAttribute('class', 'active');
+						}
+						var imgElement = new Image();
+						imgElement.src = image.url;
+						li.appendChild(imgElement);
+						document.getElementById('viewer_navlist').appendChild(li);
+					})
+				}
+
+				function getMousePosition(ev){
+					var event = ev || windows.event;
+					if(event.pageX || event.pageY){
+						return {x:event.pageX, y:event.pageY};
+					}
+					return {
+						x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+						y:ev.clientY + document.body.scrollTop - document.body.clientTop
+					};
+
+				}
+
+				function bindEvents(){
+					document.getElementById('viewer_canvas').addEventListener('mouseover', function(e){
+						console.log('image viewer');
+						//console.log(getMousePosition(e));
+					})
+				}
+
+
+
+				initData(imageList);
+				console.log(imageList);
+				var activeImg = imageList[0];
+				var _sv_w = getViewSize()["w"];
+				var _sv_h = getViewSize()['h'];
+				// var _sf_w = getFullSize()["w"];
+				// var _sf_h = getFullSize()['h'];
+				var _w = _sv_w*0.9;//这里用视口的宽度，具体视情况
+				var _h = _sv_h-100;
+				var realWidth;//真实的宽度
+				var realHeight;//真实的高度
+
+				//console.log(activeImg);
+
+				setViewImage(activeImg);
+
+				setNavList(imageList)
+
+				bindEvents();
+
+			}
+
+		</script>
+	</body>
+</html>
