@@ -8,7 +8,7 @@
 ```
 mkdir your_project && cd your_project
 cnpm init
-cnpm install @focus/ImageViewer
+cnpm install @focus/imageviewer
 
 // then create index.html and index.js
 
