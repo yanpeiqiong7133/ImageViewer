@@ -1,6 +1,6 @@
 {
   "name": "@front/imageviewer",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Image viewer component base on JavaScript",
   "main": "index.js",
   "scripts": {
@@ -11,13 +11,5 @@
     "imageviewer"
   ],
   "author": "yanpeiqiong",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yanpeiqiong7133/ImageViewer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yanpeiqiong7133/ImageViewer/issues"
-  },
-  "homepage": "https://github.com/yanpeiqiong7133/ImageViewer#readme"
+  "license": "ISC"
 }
